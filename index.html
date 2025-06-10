@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusAI - Discover AI Tools</title>
+  <style>
+    :root {
+      --primary: #00f2ff;
+      --secondary: #ff006e;
+      --accent: #8338ec;
+      --bg: #0a0a0a;
+      --card: #101010;
+      --glow: rgba(0, 242, 255, 0.3);
+      --glow-pink: rgba(255, 0, 110, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--primary);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Neural Network Background */
+    #neural-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(17, 17, 17, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px var(--glow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+      text-shadow: 0 0 10px var(--glow-pink);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .search-bar input {
+      padding: 1rem 1.5rem;
+      width: 400px;
+      background: rgba(16, 16, 16, 0.8);
+      border: 2px solid var(--primary);
+      color: white;
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      box-shadow: 0 0 20px var(--glow);
+      background: rgba(16, 16, 16, 0.9);
+    }
+
+    .search-bar button {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
+
+    .stats div {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(16, 16, 16, 0.5);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+    }
+
+    .stats strong {
+      font-size: 2rem;
+      display: block;
+      color: var(--secondary);
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 3rem 2rem;
+      padding: 2rem;
+      background: rgba(16, 16, 16, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .categories button {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .categories button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .categories button:hover::before {
+      left: 100%;
+    }
+
+    .categories button.active,
+    .categories button:hover {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+    }
+
+    /* Tools Grid */
+    .featured-tools {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .featured-tools h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tool-card {
+      background: rgba(16, 16, 16, 0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .tool-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 242, 255, 0.2);
+      border-color: var(--secondary);
+    }
+
+    .tool-card .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .tool-card h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .tool-card p {
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .tool-card .tags {
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-card .tags span {
+      display: inline-block;
+      margin: 0.2rem;
+      font-size: 0.8rem;
+      color: white;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-weight: 600;
+    }
+
+    .tool-card .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .tool-card .footer .rating {
+      color: #ffd700;
+      font-size: 1.1rem;
+    }
+
+    .tool-card .footer button {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card .footer button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(0, 242, 255, 0.3);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .search-bar input { width: 280px; }
+      .stats { gap: 2rem; }
+      .categories { margin: 2rem 1rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="neural-canvas"></canvas>
+  
+  <header>
+    <div class="logo">NEXUS<span style="color: #ff006e;">AI</span></div>
+    <nav>
+      <a href="#tools">AI Tools</a>
+      <a href="#categories">Categories</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Discover the Perfect AI Tools</h1>
+    <p>Unlock the power of artificial intelligence for every use case. Find the right AI tool for your needs.</p>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search AI Tools, Categories, or Use Cases...">
+      <button onclick="searchTools()">🔍</button>
+    </div>
+    <div class="stats">
+      <div><strong>500+</strong><br>AI Tools</div>
+      <div><strong>25+</strong><br>Categories</div>
+      <div><strong>Daily</strong><br>Updates</div>
+    </div>
+  </section>
+
+  <section class="categories" id="categories">
+    <button class="active" data-category="all">All Categories</button>
+    <button data-category="content-creation">📝 Content Creation</button>
+    <button data-category="image-generation">🎨 Image Generation</button>
+    <button data-category="code-assistance">💻 Code Assistance</button>
+    <button data-category="marketing">📈 Marketing & SEO</button>
+    <button data-category="education">🎓 Education & Learning</button>
+    <button data-category="video-editing">🎬 Video Editing</button>
+    <button data-category="music-audio">🎵 Music & Audio</button>
+    <button data-category="business-automation">⚡ Business Automation</button>
+    <button data-category="data-analysis">📊 Data Analysis</button>
+    <button data-category="design-ui">🎨 Design & UI/UX</button>
+    <button data-category="chatbots">🤖 Chatbots & Virtual Assistants</button>
+    <button data-category="translation">🌐 Translation & Language</button>
+    <button data-category="healthcare">🏥 Healthcare & Medical</button>
+    <button data-category="finance">💰 Finance & Trading</button>
+    <button data-category="gaming">🎮 Gaming & Entertainment</button>
+    <button data-category="productivity">📋 Productivity & Organization</button>
+    <button data-category="research">🔬 Research & Academia</button>
+    <button data-category="social-media">📱 Social Media Management</button>
+    <button data-category="cybersecurity">🔒 Cybersecurity</button>
+    <button data-category="real-estate">🏘️ Real Estate</button>
+  </section>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Loading AI tools...</p>
+  </div>
+
+  <section class="featured-tools" id="tools">
+    <h2>AI Tools Directory</h2>
+    <div class="tools-grid" id="toolsGrid">
+      <!-- Tools will be populated by JavaScript -->
+    </div>
+  </section>
+
+  <script>
+    // Neural Network Animation
+    class NeuralNetwork {
+      constructor() {
+        this.canvas = document.getElementById('neural-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.nodes = [];
+        this.connections = [];
+        this.init();
+      }
+
+      init() {
+        this.resize();
+        this.createNodes();
+        this.createConnections();
+        this.animate();
+        window.addEventListener('resize', () => this.resize());
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      createNodes() {
+        const nodeCount = Math.floor((this.canvas.width * this.canvas.height) / 15000);
+        this.nodes = [];
+        
+        for (let i = 0; i < nodeCount; i++) {
+          this.nodes.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            radius: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.2
+          });
+        }
+      }
+
+      createConnections() {
+        this.connections = [];
+        for (let i = 0; i < this.nodes.length; i++) {
+          for (let j = i + 1; j < this.nodes.length; j++) {
+            const distance = Math.sqrt(
+              Math.pow(this.nodes[i].x - this.nodes[j].x, 2) +
+              Math.pow(this.nodes[i].y - this.nodes[j].y, 2)
+            );
+            if (distance < 150) {
+              this.connections.push({
+                node1: this.nodes[i],
+                node2: this.nodes[j],
+                opacity: (150 - distance) / 150 * 0.3
+              });
+            }
+          }
+        }
+      }
+
+      animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Update and draw nodes
+        this.nodes.forEach(node => {
+          node.x += node.vx;
+          node.y += node.vy;
+          
+          if (node.x < 0 || node.x > this.canvas.width) node.vx *= -1;
+          if (node.y < 0 || node.y > this.canvas.height) node.vy *= -1;
+          
+          this.ctx.beginPath();
+          this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(0, 242, 255, ${node.opacity})`;
+          this.ctx.fill();
+        });
+
+        // Draw connections
+        this.connections.forEach(conn => {
+          const distance = Math.sqrt(
+            Math.pow(conn.node1.x - conn.node2.x, 2) +
+            Math.pow(conn.node1.y - conn.node2.y, 2)
+          );
+          
+          if (distance < 150) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(conn.node1.x, conn.node1.y);
+            this.ctx.lineTo(conn.node2.x, conn.node2.y);
+            this.ctx.strokeStyle = `rgba(0, 242, 255, ${(150 - distance) / 150 * 0.2})`;
+            this.ctx.stroke();
+          }
+        });
+
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+
+    // AI Tools Database
+    const aiToolsDatabase = {
+      'content-creation': [
+        { name: 'ChatGPT', description: 'Advanced AI writing assistant for content creation', icon: '✍️', tags: ['Writing', 'Content', 'AI Chat'], rating: '⭐⭐⭐⭐⭐', url: 'https://chat.openai.com' },
+        { name: 'Jasper AI', description: 'AI copywriting tool for marketing content', icon: '📝', tags: ['Copywriting', 'Marketing', 'Content'], rating: '⭐⭐⭐⭐☆', url: 'https://jasper.ai' },
+        { name: 'Copy.ai', description: 'AI-powered copywriting and content generation', icon: '🖊️', tags: ['Copywriting', 'Content', 'Marketing'], rating: '⭐⭐⭐⭐☆', url: 'https://copy.ai' }
+      ],
+      'image-generation': [
+        { name: 'DALL-E 3', description: 'Create stunning images from text descriptions', icon: '🎨', tags: ['Image Generation', 'AI Art', 'Creative'], rating: '⭐⭐⭐⭐⭐', url: 'https://openai.com/dall-e-3' },
+        { name: 'Midjourney', description: 'AI art generation with unique artistic styles', icon: '🖼️', tags: ['AI Art', 'Creative', 'Design'], rating: '⭐⭐⭐⭐⭐', url: 'https://midjourney.com' },
+        { name: 'Stable Diffusion', description: 'Open-source AI image generation model', icon: '🎭', tags: ['Open Source', 'AI Art', 'Image Generation'], rating: '⭐⭐⭐⭐☆', url: 'https://stability.ai' }
+      ],
+      'code-assistance': [
+        { name: 'GitHub Copilot', description: 'AI pair programmer for code completion', icon: '👨‍💻', tags: ['Coding', 'AI Assistant', 'Programming'], rating: '⭐⭐⭐⭐⭐', url: 'https://github.com/features/copilot' },
+        { name: 'Claude Code', description: 'AI coding assistant for complex programming tasks', icon: '💻', tags: ['Coding', 'AI Assistant', 'Development'], rating: '⭐⭐⭐⭐⭐', url: 'https://claude.ai' },
+        { name: 'Tabnine', description: 'AI code completion for multiple programming languages', icon: '⚡', tags: ['Code Completion', 'AI', 'Programming'], rating: '⭐⭐⭐⭐☆', url: 'https://tabnine.com' }
+      ],
+      'marketing': [
+        { name: 'HubSpot AI', description: 'AI-powered marketing automation and analytics', icon: '📈', tags: ['Marketing', 'Automation', 'Analytics'], rating: '⭐⭐⭐⭐⭐', url: 'https://hubspot.com' },
+        { name: 'Semrush', description: 'AI-driven SEO and marketing analytics platform', icon: '🔍', tags: ['SEO', 'Marketing', 'Analytics'], rating: '⭐⭐⭐⭐⭐', url: 'https://semrush.com' },
+        { name: 'Buffer AI', description: 'AI-powered social media scheduling and optimization', icon: '📱', tags: ['Social Media', 'Scheduling', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://buffer.com' }
+      ],
+      'education': [
+        { name: 'Khan Academy AI', description: 'Personalized AI tutoring and learning assistance', icon: '🎓', tags: ['Education', 'Tutoring', 'Learning'], rating: '⭐⭐⭐⭐⭐', url: 'https://khanacademy.org' },
+        { name: 'Duolingo', description: 'AI-powered language learning platform', icon: '🌐', tags: ['Language Learning', 'Education', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://duolingo.com' },
+        { name: 'Coursera AI', description: 'AI-enhanced online courses and learning paths', icon: '📚', tags: ['Online Learning', 'Courses', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://coursera.org' }
+      ],
+      'video-editing': [
+        { name: 'Runway ML', description: 'AI-powered video editing and generation tools', icon: '🎬', tags: ['Video Editing', 'AI Generation', 'Creative'], rating: '⭐⭐⭐⭐⭐', url: 'https://runwayml.com' },
+        { name: 'Pictory', description: 'AI video creation from text and scripts', icon: '📹', tags: ['Video Creation', 'AI', 'Content'], rating: '⭐⭐⭐⭐☆', url: 'https://pictory.ai' },
+        { name: 'Loom AI', description: 'AI-enhanced screen recording and video messaging', icon: '🎥', tags: ['Screen Recording', 'Video', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://loom.com' }
+      ],
+      'music-audio': [
+        { name: 'AIVA', description: 'AI composer for original music creation', icon: '🎵', tags: ['Music Composition', 'AI', 'Creative'], rating: '⭐⭐⭐⭐☆', url: 'https://aiva.ai' },
+        { name: 'Mubert', description: 'AI-generated royalty-free music for content', icon: '🎶', tags: ['Music Generation', 'Royalty-Free', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://mubert.com' },
+        { name: 'Descript', description: 'AI-powered audio editing and transcription', icon: '🎙️', tags: ['Audio Editing', 'Transcription', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://descript.com' }
+      ],
+      'business-automation': [
+        { name: 'Zapier', description: 'AI-powered workflow automation between apps', icon: '⚡', tags: ['Automation', 'Workflow', 'Integration'], rating: '⭐⭐⭐⭐⭐', url: 'https://zapier.com' },
+        { name: 'UiPath', description: 'AI-enhanced robotic process automation', icon: '🤖', tags: ['RPA', 'Automation', 'Business'], rating: '⭐⭐⭐⭐☆', url: 'https://uipath.com' },
+        { name: 'Monday.ai', description: 'AI-powered project management and automation', icon: '📋', tags: ['Project Management', 'Automation', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://monday.com' }
+      ],
+      'data-analysis': [
+        { name: 'Tableau AI', description: 'AI-powered data visualization and analytics', icon: '📊', tags: ['Data Visualization', 'Analytics', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://tableau.com' },
+        { name: 'DataRobot', description: 'Automated machine learning platform', icon: '🔬', tags: ['Machine Learning', 'Data Science', 'Automation'], rating: '⭐⭐⭐⭐☆', url: 'https://datarobot.com' },
+        { name: 'H2O.ai', description: 'Open-source AI and machine learning platform', icon: '💧', tags: ['Machine Learning', 'Open Source', 'Data Science'], rating: '⭐⭐⭐⭐☆', url: 'https://h2o.ai' }
+      ],
+      'design-ui': [
+        { name: 'Figma AI', description: 'AI-enhanced collaborative design tool', icon: '🎨', tags: ['Design', 'UI/UX', 'Collaboration'], rating: '⭐⭐⭐⭐⭐', url: 'https://figma.com' },
+        { name: 'Adobe Firefly', description: 'AI-powered creative tools for designers', icon: '🔥', tags: ['Creative Suite', 'AI Generation', 'Design'], rating: '⭐⭐⭐⭐⭐', url: 'https://adobe.com/products/firefly' },
+        { name: 'Canva AI', description: 'AI-assisted graphic design platform', icon: '🖼️', tags: ['Graphic Design', 'Templates', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://canva.com' }
+      ]
+    };
+
+    let currentCategory = 'all';
+
+    // Initialize Neural Network
+    const neuralNet = new NeuralNetwork();
+
+    // Category Management
+    function initializeCategories() {
+      const categoryButtons = document.querySelectorAll('.categories button');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Get category
+          const category = button.getAttribute('data-category');
+          currentCategory = category;
+          
+          // Show loading
+          showLoading();
+          
+          // Filter and display tools
+          setTimeout(() => {
+            displayTools(category);
+            hideLoading();
+          }, 500);
+        });
+      });
+    }
+
+    // Display Tools
+    function displayTools(category) {
+      const toolsGrid = document.getElementById('toolsGrid');
+      let toolsToShow = [];
+
+      if (category === 'all') {
+        // Show tools from all categories
+        Object.values(aiToolsDatabase).forEach(categoryTools => {
+          toolsToShow = toolsToShow.concat(categoryTools);
+        });
+      } else if (aiToolsDatabase[category]) {
+        toolsToShow = aiToolsDatabase[category];
+      }
+
+      // Shuffle tools for variety
+      toolsToShow = toolsToShow.sort(() => Math.random() - 0.5);
+
+      toolsGrid.innerHTML = toolsToShow.map(tool => `
+        <div class="tool-card">
+          <div class="icon">${tool.icon}</div>
+          <h3>${tool.name}</h3>
+          <p>${tool.description}</p>
+          <div class="tags">
+            ${tool.tags.map(tag => `<span>#${tag}</span>`).join('')}
+          </div>
+          <div class="footer">
+            <span class="rating">${tool.rating}</span>
+            <button onclick="openTool('${tool.url}', '${tool.name}')">Explore</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Open Tool
+    function openTool(url, name) {
+      // Add some visual feedback
+      const button = event.target;
+      button.textContent = 'Opening...';
+      button.style.background = 'linear-gradient(45deg, #ff006e, #8338ec)';
+      
+      setTimeout(() => {
+        window.open(url, '_blank');
+        button.textContent = 'Explore';
+        button.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
+      }, 800);
+    }
+
+    // Search Functionality
+    function searchTools() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      if (!searchTerm) return;
+
+      showLoading();
+      
+      setTimeout(() => {
+        let searchResults = [];
+        
+        Object.values(aiToolsDatabase).forEach(categoryTools => {
+          categoryTools.forEach(tool => {
+            if (tool.name.toLowerCase().includes(searchTerm) ||
+                tool.description.toLowerCase().includes(searchTerm) ||
+                tool.tags.some(tag => tag.toLowerCase().includes(searchTerm))) {
+              searchResults.push(tool);
+            }
+          });
+        });
+
+        displaySearchResults(searchResults);
+        hideLoading();
+      }, 800);
+    }
+
+    function displaySearchResults(results) {
+      const toolsGrid = document.getElementById('toolsGrid');
+      
+      if (results.length === 0) {
+        toolsGrid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+            <h3>No tools found matching your search</h3>
+            <p>Try different keywords or browse our categories</p>
+          </div>
+        `;
+        return;
+      }
+
+      toolsGrid.innerHTML = results.map(tool => `
+        <div class="tool-card">
+          <div class="icon">${tool.icon}</div>
+          <h3>${tool.name}</h3>
+          <p>${tool.description}</p>
+          <div class="tags">
+            ${tool.tags.map(tag => `<span>#${tag}</span>`).join('')}
+          </div>
+          <div class="footer">
+            <span class="rating">${tool.rating}</span>
+            <button onclick="openTool('${tool.url}', '${tool.name}')">Explore</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Loading Functions
+    function showLoading() {
+      document.getElementById('loading').classList.add('show');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').classList.remove('show');
+    }
+
+    // Initialize the page
+    function init() {
+      initializeCategories();
+      displayTools('all');
+      
+      // Add search input event listener
+      document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          searchTools();
+        }
+      });
+    }
+
+    // Start the application when DOM is loaded
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
