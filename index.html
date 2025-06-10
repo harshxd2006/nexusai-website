@@ -330,6 +330,67 @@
       transform: scale(1.05);
       box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3);
     }
+    /* About Section */
+    .about-section {
+      padding: 4rem 2rem;
+      background: rgba(16, 16, 16, 0.3);
+      margin: 3rem 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      display: none;
+    }
+
+    .about-section.show {
+      display: block;
+    }
+
+    .about-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .about-content p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: rgba(0, 242, 255, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 1px solid var(--primary);
+      text-align: center;
+    }
+
+    .feature-card .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
 
     /* Loading Animation */
     .loading {
@@ -427,9 +488,83 @@
     <div class="tools-grid" id="toolsGrid">
       <!-- Tools will be populated by JavaScript -->
     </div>
-  </section>
+  </section class="about-section" id="aboutSection">
+  <h2>About NexusAI</h2>
+  <div class="about-content">
+    <p>
+      Welcome to <strong>NexusAI</strong> - your ultimate destination for discovering, exploring, and leveraging the most powerful AI tools available today. In an era where artificial intelligence is transforming every industry, we serve as your trusted guide through the rapidly expanding landscape of AI solutions.
+    </p>
+    
+    <p>
+      Our mission is simple yet ambitious: to democratize access to AI technology by creating the world's most comprehensive, user-friendly directory of artificial intelligence tools. Whether you're a seasoned developer, creative professional, business owner, researcher, or simply curious about AI's potential, NexusAI connects you with the perfect tools to amplify your capabilities.
+    </p>
 
-  <script>
+    <div class="about-features">
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h3>Comprehensive Discovery</h3>
+        <p>Explore 500+ carefully curated AI tools across 20+ categories, from content creation to data analysis, all in one place.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon">⚡</div>
+        <h3>Smart Categorization</h3>
+        <p>Find exactly what you need with our intelligent category system and powerful search functionality.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon">🎯</div>
+        <h3>Expert Curation</h3>
+        <p>Every tool is hand-picked and evaluated by our AI experts to ensure quality, reliability, and real-world value.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon">🚀</div>
+        <h3>Always Current</h3>
+        <p>Stay ahead with daily updates featuring the latest AI innovations and emerging technologies.</p>
+      </div>
+    </div>
+
+    <p>
+      <strong>What Makes NexusAI Special?</strong>
+    </p>
+    
+    <p>
+      Unlike generic software directories, NexusAI specializes exclusively in artificial intelligence solutions. Our team of AI researchers, developers, and industry experts continuously monitors the AI ecosystem to bring you the most innovative and effective tools. We understand that choosing the right AI tool can be overwhelming with thousands of options available - that's why we've created detailed categories, honest ratings, and comprehensive descriptions to help you make informed decisions.
+    </p>
+
+    <p>
+      From Fortune 500 companies streamlining operations with business automation tools to independent creators generating stunning artwork with AI image generators, NexusAI serves diverse communities united by their desire to harness AI's transformative power.
+    </p>
+
+    <p>
+      <strong>Our Categories Cover Every Need:</strong>
+    </p>
+
+    <p>
+      • <strong>Creative Tools:</strong> Content creation, image generation, video editing, music composition<br>
+      • <strong>Development:</strong> Code assistance, automation, data analysis, cybersecurity<br>
+      • <strong>Business Solutions:</strong> Marketing, finance, real estate, productivity<br>
+      • <strong>Communication:</strong> Translation, chatbots, social media management<br>
+      • <strong>Specialized Fields:</strong> Healthcare, education, research, gaming
+    </p>
+
+    <p>
+      <strong>Join the AI Revolution</strong>
+    </p>
+
+    <p>
+      The future belongs to those who embrace AI today. Whether you're looking to automate repetitive tasks, enhance your creative projects, gain competitive business insights, or explore the frontiers of what's possible, NexusAI is your gateway to the AI-powered future.
+    </p>
+
+    <p>
+      Start exploring our directory today and discover how artificial intelligence can transform your work, creativity, and life. The perfect AI tool for your next breakthrough is just a click away.
+    </p>
+  </div>
+</section>
+ <script>
+
+  
     // Neural Network Animation
     class NeuralNetwork {
       constructor() {
@@ -573,10 +708,85 @@
         { name: 'H2O.ai', description: 'Open-source AI and machine learning platform', icon: '💧', tags: ['Machine Learning', 'Open Source', 'Data Science'], rating: '⭐⭐⭐⭐☆', url: 'https://h2o.ai' }
       ],
       'design-ui': [
-        { name: 'Figma AI', description: 'AI-enhanced collaborative design tool', icon: '🎨', tags: ['Design', 'UI/UX', 'Collaboration'], rating: '⭐⭐⭐⭐⭐', url: 'https://figma.com' },
-        { name: 'Adobe Firefly', description: 'AI-powered creative tools for designers', icon: '🔥', tags: ['Creative Suite', 'AI Generation', 'Design'], rating: '⭐⭐⭐⭐⭐', url: 'https://adobe.com/products/firefly' },
-        { name: 'Canva AI', description: 'AI-assisted graphic design platform', icon: '🖼️', tags: ['Graphic Design', 'Templates', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://canva.com' }
+        { name: 'Figma AI', description: 'AI-powered design collaboration tool', icon: '✏️', tags: ['UI/UX', 'Design', 'Collaboration'], rating: '⭐⭐⭐⭐⭐', url: 'https://figma.com' },
+        { name: 'Canva AI', description: 'AI-enhanced design platform', icon: '🎨', tags: ['Graphic Design', 'Templates', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://canva.com' },
+        { name: 'Adobe Sensei', description: 'AI and machine learning for creative tools', icon: '🧠', tags: ['Creative Suite', 'AI', 'Design'], rating: '⭐⭐⭐⭐⭐', url: 'https://adobe.com/sensei' },
+        { name: 'Uizard', description: 'AI-powered UI design tool', icon: '📱', tags: ['UI Design', 'Prototyping', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://uizard.io' },
+        { name: 'Khroma', description: 'AI color tool for designers', icon: '🌈', tags: ['Color Palettes', 'Design', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://khroma.co' }
+      ],
+      'chatbots': [
+        { name: 'Intercom Fin', description: 'AI-powered customer support chatbot', icon: '💬', tags: ['Customer Support', 'Chatbot', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://intercom.com/fin' },
+        { name: 'Drift', description: 'Conversational AI for sales and marketing', icon: '🤝', tags: ['Sales', 'Marketing', 'Chatbot'], rating: '⭐⭐⭐⭐☆', url: 'https://drift.com' },
+        { name: 'ManyChat', description: 'AI chatbot platform for Messenger', icon: '💬', tags: ['Messenger', 'Chatbot', 'Marketing'], rating: '⭐⭐⭐⭐☆', url: 'https://manychat.com' },
+        { name: 'Ada', description: 'AI-powered customer service automation', icon: '👩‍💼', tags: ['Customer Service', 'Automation', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://ada.cx' },
+        { name: 'Tidio Lyro', description: 'AI chatbot for e-commerce', icon: '🛒', tags: ['E-commerce', 'Chatbot', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://tidio.com/lyro' }
+      ],
+      'translation': [
+        { name: 'DeepL', description: 'AI-powered translation tool', icon: '🌐', tags: ['Translation', 'Language', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://deepl.com' },
+        { name: 'Google Translate AI', description: 'Neural machine translation', icon: '🔤', tags: ['Translation', 'Google', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://translate.google.com' },
+        { name: 'Unbabel', description: 'AI-powered human-refined translation', icon: '✍️', tags: ['Translation', 'Human-in-the-loop', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://unbabel.com' },
+        { name: 'Sonix', description: 'AI transcription and translation', icon: '🎙️', tags: ['Transcription', 'Translation', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://sonix.ai' },
+        { name: 'Lilt', description: 'AI-assisted translation platform', icon: '🔄', tags: ['Translation', 'Localization', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://lilt.com' }
+      ],
+      'healthcare': [
+        { name: 'IBM Watson Health', description: 'AI solutions for healthcare', icon: '🏥', tags: ['Healthcare', 'Diagnostics', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://ibm.com/watson-health' },
+        { name: 'PathAI', description: 'AI-powered pathology diagnostics', icon: '🔬', tags: ['Pathology', 'Diagnostics', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://pathai.com' },
+        { name: 'Butterfly Network', description: 'AI-powered medical imaging', icon: '🩺', tags: ['Medical Imaging', 'Diagnostics', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://butterflynetwork.com' },
+        { name: 'Tempus', description: 'AI-powered precision medicine', icon: '🧬', tags: ['Precision Medicine', 'Genomics', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://tempus.com' },
+        { name: 'Zebra Medical Vision', description: 'AI radiology assistant', icon: '📷', tags: ['Radiology', 'Diagnostics', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://zebra-med.com' }
+      ],
+      'finance': [
+        { name: 'Kensho', description: 'AI for investment analysis', icon: '📈', tags: ['Investment', 'Finance', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://kensho.com' },
+        { name: 'AlphaSense', description: 'AI-powered financial research', icon: '🔍', tags: ['Financial Research', 'Market Intelligence', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://alpha-sense.com' },
+        { name: 'Ayasdi', description: 'AI for anti-money laundering', icon: '💰', tags: ['AML', 'Compliance', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://ayasdi.com' },
+        { name: 'Upstart', description: 'AI lending platform', icon: '🏦', tags: ['Lending', 'Credit Scoring', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://upstart.com' },
+        { name: 'Zest AI', description: 'AI-powered credit underwriting', icon: '📊', tags: ['Credit Scoring', 'Underwriting', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://zest.ai' }
+      ],
+      'gaming': [
+        { name: 'Inworld AI', description: 'AI-powered game characters', icon: '🎮', tags: ['NPCs', 'Gaming', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://inworld.ai' },
+        { name: 'Latitude Voyage', description: 'AI-generated game worlds', icon: '🌍', tags: ['Procedural Generation', 'Gaming', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://latitude.io' },
+        { name: 'Promethean AI', description: 'AI assistant for game development', icon: '🛠️', tags: ['Game Development', 'Assets', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://prometheanai.com' },
+        { name: 'Modulate', description: 'AI voice skins for gaming', icon: '🎙️', tags: ['Voice Modulation', 'Gaming', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://modulate.ai' },
+        { name: 'Playtika Boost', description: 'AI for game analytics and optimization', icon: '📊', tags: ['Game Analytics', 'Optimization', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://playtika.com' }
+      ],
+      'productivity': [
+        { name: 'Notion AI', description: 'AI-powered workspace assistant', icon: '📝', tags: ['Productivity', 'Note-taking', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://notion.so' },
+        { name: 'Motion', description: 'AI-powered calendar and scheduling', icon: '📅', tags: ['Scheduling', 'Time Management', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://motion.app' },
+        { name: 'Mem', description: 'AI-powered personal knowledge base', icon: '🧠', tags: ['Knowledge Management', 'Note-taking', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://mem.ai' },
+        { name: 'Clockwise', description: 'AI calendar optimization', icon: '⏱️', tags: ['Time Management', 'Scheduling', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://getclockwise.com' },
+        { name: 'Fireflies', description: 'AI meeting assistant', icon: '🎙️', tags: ['Meeting Notes', 'Transcription', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://fireflies.ai' }
+      ],
+      'research': [
+        { name: 'Elicit', description: 'AI research assistant', icon: '🔍', tags: ['Literature Review', 'Research', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://elicit.org' },
+        { name: 'Scite', description: 'AI for scientific citation analysis', icon: '📑', tags: ['Citations', 'Research', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://scite.ai' },
+        { name: 'Consensus', description: 'AI-powered research search engine', icon: '🔬', tags: ['Research Search', 'Science', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://consensus.app' },
+        { name: 'Semantic Scholar', description: 'AI-powered academic search', icon: '🎓', tags: ['Academic Search', 'Research', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://semanticscholar.org' },
+        { name: 'Iris AI', description: 'AI research assistant for science', icon: '⚗️', tags: ['Scientific Research', 'Discovery', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://iris.ai' }
+      ],
+      'social-media': [
+        { name: 'Hootsuite Insights', description: 'AI-powered social media analytics', icon: '📱', tags: ['Social Media', 'Analytics', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://hootsuite.com' },
+        { name: 'Lately', description: 'AI social media content generator', icon: '✍️', tags: ['Content Generation', 'Social Media', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://lately.ai' },
+        { name: 'Phrasee', description: 'AI-powered social media copywriting', icon: '💬', tags: ['Copywriting', 'Social Media', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://phrasee.co' },
+        { name: 'Flick', description: 'AI social media assistant', icon: '📊', tags: ['Social Media', 'Content', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://flick.social' },
+        { name: 'Predis.ai', description: 'AI social media content creation', icon: '🎨', tags: ['Content Creation', 'Social Media', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://predis.ai' }
+      ],
+      'cybersecurity': [
+        { name: 'Darktrace', description: 'AI-powered cybersecurity', icon: '🛡️', tags: ['Threat Detection', 'Cybersecurity', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://darktrace.com' },
+        { name: 'CrowdStrike', description: 'AI-driven endpoint protection', icon: '💻', tags: ['Endpoint Security', 'Threat Intelligence', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://crowdstrike.com' },
+        { name: 'Vectra AI', description: 'AI network detection and response', icon: '🌐', tags: ['Network Security', 'Threat Detection', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://vectra.ai' },
+        { name: 'SentinelOne', description: 'Autonomous AI endpoint protection', icon: '🤖', tags: ['Endpoint Security', 'Autonomous', 'AI'], rating: '⭐⭐⭐⭐⭐', url: 'https://sentinelone.com' },
+        { name: 'Tessian', description: 'AI for email security', icon: '📧', tags: ['Email Security', 'Phishing', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://tessian.com' }
+      ],
+      'real-estate': [
+        { name: 'Skyline AI', description: 'AI for real estate investment', icon: '🏢', tags: ['Real Estate', 'Investment', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://skyline.ai' },
+        { name: 'Cherre', description: 'AI real estate data platform', icon: '📊', tags: ['Real Estate', 'Data', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://cherre.com' },
+        { name: 'HouseCanary', description: 'AI real estate valuations', icon: '🏠', tags: ['Valuations', 'Real Estate', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://housecanary.com' },
+        { name: 'Restb.ai', description: 'AI for real estate image analysis', icon: '📷', tags: ['Image Analysis', 'Real Estate', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://restb.ai' },
+        { name: 'Zillow Zestimate', description: 'AI-powered home valuations', icon: '💰', tags: ['Home Valuations', 'Real Estate', 'AI'], rating: '⭐⭐⭐⭐☆', url: 'https://zillow.com/zestimate' }
       ]
+
+      
+
     };
 
     let currentCategory = 'all';
